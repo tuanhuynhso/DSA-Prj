@@ -14,17 +14,17 @@ public class CooldownManager {
         return instance;
     }
 
-    private Map<Skill, Float> cooldowns = new HashMap<>();
+    private Map<Skill, Double> cooldowns = new HashMap<>();
 
     public boolean available(Skill s) {
-        return currentTime() >= cooldowns.getOrDefault(s, 0f);
+        return currentTime() >= cooldowns.getOrDefault(s, 0d);
     }
 
     public void start(Skill s) {
         cooldowns.put(s, currentTime() + s.cooldown);
     }
 
-    private float currentTime() {
-        return System.currentTimeMillis() / 1000f;
+    private double currentTime() {
+        return System.currentTimeMillis() / 1000d; // Convert to seconds
     }
 }

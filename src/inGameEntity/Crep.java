@@ -12,7 +12,7 @@ import entity.Entity;
 
 public class Crep extends Entity {
     private GamePanel gp;
-    
+
     private boolean inAction = false;
 
     private CrepsAttack attack;
@@ -37,7 +37,8 @@ public class Crep extends Entity {
             if (!getCollisionOn()[1]) {
                 worldX += Math.min(getSpeed(), Math.abs(playerX - worldX));
             } else {
-                worldX = getCollisionTile()[1] * Constant.tileSize + Constant.tileSize - getWidth() / 2 + getColGap() - 1;
+                worldX = getCollisionTile()[1] * Constant.tileSize + Constant.tileSize - getWidth() / 2 + getColGap()
+                        - 1;
             }
         } else if (worldX > playerX) {
             // Move left
@@ -52,7 +53,8 @@ public class Crep extends Entity {
             if (!getCollisionOn()[3]) {
                 worldY += Math.min(getSpeed(), Math.abs(playerY - worldY));
             } else {
-                worldY = getCollisionTile()[3] * Constant.tileSize + Constant.tileSize - getHeight() / 2 + getRowGap() - 1;
+                worldY = getCollisionTile()[3] * Constant.tileSize + Constant.tileSize - getHeight() / 2 + getRowGap()
+                        - 1;
             }
         } else if (worldY > playerY) {
             // Move up
@@ -87,6 +89,27 @@ public class Crep extends Entity {
         }
     }
 
+    public void drawHealthBar(Graphics g, int x, int y, int currentHP, int maxHP) {
+        int width = 46;
+        int height = 6;
+
+        float hpPercent = (float) (currentHP+1) / (maxHP+1);
+        if (hpPercent < 0)
+            hpPercent = 0;
+
+        // Background bar4
+        g.setColor(Color.darkGray);
+        g.fillRect(x, y, width, height);
+
+        // Health portion
+        g.setColor(Color.red);
+        g.fillRect(x, y, (int) (width * hpPercent), height);
+
+        // Outline
+        g.setColor(Color.black);
+        g.drawRect(x, y, width, height);
+    }
+
     public void update() {
         if (!isAlive()) {
             return;
@@ -110,7 +133,7 @@ public class Crep extends Entity {
     public void draw(Graphics g2) {
         g2.setColor(Color.YELLOW);
         g2.fillRect(getScreenX(), getScreenY(), 46, 46); // Assuming tile size of 64 for Creps
-
+        drawHealthBar(g2, getScreenX(), getScreenY() - 10, this.getHp(), this.getMaxHp());
         attack.draw(g2);
     }
 }

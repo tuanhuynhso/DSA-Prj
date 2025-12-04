@@ -20,17 +20,19 @@ public class Player extends Entity {
         return instance;
     }
 
-    private Player(GamePanel gp) {
-        super(gp, "Player", (int) (Constant.tileSize * 1.5), (int) (Constant.tileSize * 1.5),
-        Constant.tileSize, Constant.tileSize, new Rectangle(48, 48), 5, 10, 5, 5,
-        new boolean[4], new int[4]);
-        this.gp = gp;
-    }
-
-    public AutoAttack autoAttackSkill = new AutoAttack(gp);
     private int ticks = 0;
     private int stuntDurations = 0;
     private Rectangle hitBox = new Rectangle(0, 0, 64, 64);
+    public AutoAttack autoAttackSkill;
+    
+    private Player(GamePanel gp) {
+        super(gp, "Player", (int) (Constant.tileSize * 1.5), (int) (Constant.tileSize * 1.5),
+        Constant.tileSize, Constant.tileSize, new Rectangle(48, 48), 5, 1, 5, 5,
+        new boolean[4], new int[4]);
+        this.gp = gp;
+        autoAttackSkill = new AutoAttack(gp);
+    }
+    
 
     private void handleMovementInput(KeyHandler keyH) {
         if (keyH.leftPressed) {
@@ -144,7 +146,7 @@ public class Player extends Entity {
     }
 
     public void draw(Graphics2D g2) {
-        g2.setColor(java.awt.Color.RED);
+        g2.setColor(java.awt.Color.BLUE);
         g2.fillRect(getScreenX(), getScreenY(), Constant.tileSize, Constant.tileSize);
     }
 

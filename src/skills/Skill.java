@@ -6,8 +6,8 @@ import main.GamePanel;
 public abstract class Skill {
     public GamePanel gp;
     public String name;
-    public float cooldown;
-    public float manaCost;
+    public double cooldown;
+    public double manaCost;
 
     public Skill(GamePanel gp) {
         this.gp = gp;

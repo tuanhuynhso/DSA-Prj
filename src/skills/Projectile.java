@@ -107,7 +107,7 @@ public class Projectile {
 
     public void draw(Graphics g) {
         g.setColor(Color.RED);
-        g.fillOval(cor[0] - screenM.getScreenX(), cor[1] - screenM.getScreenY(), 20, 20); // Example
+        g.fillOval(cor[0] - screenM.getScreenX(), cor[1] - screenM.getScreenY(), 15, 15); // Example
     
     }
 
