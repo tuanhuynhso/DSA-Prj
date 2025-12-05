@@ -1,6 +1,7 @@
 package utils;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.InputStream;
@@ -80,6 +81,9 @@ public class TileMangement {
         for (int row = 0; row < Constant.maxWorldRow; row++) {
             for (int col = 0; col < Constant.maxWorldCol; col++) {
                 int tileId = mapTileNum[col][row];
+                if (tileId == 2){
+                    StatueManager.getInstance(gp).addStatue(new Point(col, row));
+                }
                 BufferedImage tileI = tile[tileId].getTileImage(); // tile image from sprite sheet
 
                 g.drawImage(tileI, col * Constant.tileSize, row * Constant.tileSize, Constant.tileSize, Constant.tileSize, null);

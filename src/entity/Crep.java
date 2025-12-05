@@ -1,4 +1,4 @@
-package inGameEntity;
+package entity;
 
 import main.Constant;
 import main.GamePanel;
@@ -7,8 +7,6 @@ import skills.CrepsAttack;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
-import entity.Entity;
 
 public class Crep extends Entity {
     private GamePanel gp;
@@ -87,6 +85,13 @@ public class Crep extends Entity {
         } else {
             inAction = false;
         }
+    }
+
+    public boolean isInFrame(){
+        int screenX = getScreenX();
+        int screenY = getScreenY();
+        return screenX + getWidth() > 0 && screenX < Constant.screenWidth &&
+                screenY + getHeight() > 0 && screenY < Constant.screenHeight;
     }
 
     public void drawHealthBar(Graphics g, int x, int y, int currentHP, int maxHP) {

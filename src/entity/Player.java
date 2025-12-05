@@ -1,9 +1,9 @@
-package inGameEntity;
+package entity;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import entity.Entity;
+
 import main.Constant;
 import main.GamePanel;
 import utils.KeyHandler;

@@ -1,10 +1,11 @@
 package skills;
 
-import inGameEntity.Crep;
-import inGameEntity.Player;
 import main.Constant;
 import main.GamePanel;
 import java.awt.Rectangle;
+
+import entity.Crep;
+import entity.Player;
 
 public class CrepsAttack {
     private GamePanel gp;

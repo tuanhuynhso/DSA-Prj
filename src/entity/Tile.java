@@ -20,6 +20,14 @@ public class Tile{
     }
 
     private BufferedImage tileImage(int tileNum) {
+        if (tileNum == 2){
+            BufferedImage img = new BufferedImage(Constant.tileSize, Constant.tileSize, BufferedImage.TYPE_INT_ARGB);
+            java.awt.Graphics2D g = img.createGraphics();
+            g.setColor(new java.awt.Color(128, 128, 128));
+            g.fillRect(0, 0, Constant.tileSize, Constant.tileSize);
+            g.dispose();
+            return img;
+        }
         try {
             BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/res/tiles/tile" + tileNum + ".png"));
             if (img == null) return null;

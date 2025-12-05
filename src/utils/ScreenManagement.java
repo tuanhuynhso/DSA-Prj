@@ -14,7 +14,7 @@ public class ScreenManagement {
     }
     private GamePanel gp;
 
-    private float lerp = 0.1f; // smoothing amount
+    private float lerp = 0.03f; // smoothing amount
     private float screenX, screenY;
 
     private ScreenManagement(GamePanel gp) {

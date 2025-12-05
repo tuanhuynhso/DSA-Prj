@@ -1,10 +1,9 @@
 package utils;
 
-import main.Constant;
 import main.GamePanel;
-
 import java.util.ArrayList;
-import inGameEntity.Crep;
+import entity.Crep;
+import main.Constant;
 
 public class CrepsManager {
     private static CrepsManager instance = null;
@@ -15,10 +14,9 @@ public class CrepsManager {
         return instance;
     }
 
-    private ArrayList<Crep> creps;
+    private ArrayList<Crep> creps = new ArrayList<>();
 
     private CrepsManager(GamePanel gp) {
-        creps = new ArrayList<>();
         creps.add(new Crep(gp, (int)(4.5*Constant.tileSize), (int)(4.5*Constant.tileSize))); // Placeholder for index 0/
         creps.add(new Crep(gp, 10*Constant.tileSize, 5*Constant.tileSize)); // Placeholder for index 1
         creps.add(new Crep(gp, 15*Constant.tileSize, 10*Constant.tileSize)); // Placeholder for index 2
@@ -31,6 +29,9 @@ public class CrepsManager {
             if (!crep.isAlive()) {
                 creps.remove(i);
                 i--;
+                continue;
+            }
+            if (!crep.isInFrame()) {
                 continue;
             }
             crep.update();

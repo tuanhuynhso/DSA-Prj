@@ -1,7 +1,7 @@
 package skills;
 
+import entity.Crep;
 import entity.Entity;
-import inGameEntity.Crep;
 import main.Constant;
 import main.GamePanel;
 import utils.ScreenManagement;
