@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
     public CoordinateManager mouseTrack = CoordinateManager.getInstance();
     public ScreenManagement screenManagement = ScreenManagement.getInstance(this);
     public TileMangement tileM = TileMangement.getInstance(this);
-    public Player mainCharacter = Player.getInstance(this);
+    public Player player = Player.getInstance(this);
     public CollisionChecker collisionChecker = CollisionChecker.getInstance(this);
     public CrepsManager crepsManager = CrepsManager.getInstance(this);
     public ProjectileManager projectileManager = ProjectileManager.getInstance();
@@ -44,36 +44,41 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        double drawInterval = 1000000000.0 / Constant.FPS; // Assuming 60 FPS
+        double drawInterval = 1000000000.0 / Constant.FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (gameThread != null) {
             update();
             repaint();
+
             double remainingTime = nextDrawTime - System.nanoTime();
+
             if (remainingTime > 0) {
                 try {
-                    Thread.sleep((long) (remainingTime / 1000000)); // Convert to milliseconds
+                    Thread.sleep((long) (remainingTime / 1_000_000));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+
             nextDrawTime += drawInterval;
         }
     }
 
     public void update() {
         screenManagement.update();
-        mainCharacter.update(keyHandler);
+        player.update(keyHandler);
         crepsManager.updateCreps();
         projectileManager.updateProjectiles();
     }
 
-    public void paintComponent(Graphics g) {
+    @Override
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
         tileM.draw(g2);
-        mainCharacter.draw(g2);
+        player.draw(g2);
         crepsManager.drawCreps(g2);
         projectileManager.drawProjectiles(g2);
         statueManager.drawStatues(g2);

@@ -24,8 +24,8 @@ public class ScreenManagement {
     }
 
     public void update() {
-        screenX+=(gp.mainCharacter.worldX-screenX-Constant.screenWidth/2 + Constant.tileSize)*lerp;
-        screenY+=(gp.mainCharacter.worldY-screenY-Constant.screenHeight/2 + Constant.tileSize*2)*lerp;
+        screenX+=(gp.player.worldX-screenX-Constant.screenWidth/2 + Constant.tileSize)*lerp;
+        screenY+=(gp.player.worldY-screenY-Constant.screenHeight/2 + Constant.tileSize*2)*lerp;
     }
 
     public int getScreenX() {

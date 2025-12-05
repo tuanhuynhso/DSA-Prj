@@ -1,4 +1,4 @@
-package entity;
+package inGameEntity;
 import java.awt.Graphics2D;
 
 import main.Constant;

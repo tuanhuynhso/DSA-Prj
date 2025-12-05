@@ -28,8 +28,8 @@ public class Statue {
     }
 
     public void drawInteractable(Graphics g) {
-        if (Math.abs(gp.mainCharacter.worldX - worldX) > Constant.interactDistance ||
-                Math.abs(gp.mainCharacter.worldY - worldY) > Constant.interactDistance) {
+        if (Math.abs(gp.player.worldX - worldX) > Constant.interactDistance ||
+                Math.abs(gp.player.worldY - worldY) > Constant.interactDistance) {
             return;
         }
 

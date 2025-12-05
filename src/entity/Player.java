@@ -112,9 +112,9 @@ public class Player extends Entity {
 
     public void autoAttack() {
         Point target = gp.mouseTrack.getMouseWorldPosition(gp);
-        if (gp.cooldownManager.available(gp.mainCharacter.autoAttackSkill)) {
-            gp.mainCharacter.autoAttackSkill.activate(this, target);
-            gp.cooldownManager.start(gp.mainCharacter.autoAttackSkill);
+        if (gp.cooldownManager.available(gp.player.autoAttackSkill)) {
+            gp.player.autoAttackSkill.activate(this, target);
+            gp.cooldownManager.start(gp.player.autoAttackSkill);
         }
     }
 

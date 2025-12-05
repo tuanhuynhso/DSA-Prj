@@ -1,6 +1,7 @@
 package skills;
 
 import java.awt.Point;
+
 import entity.Entity;
 import main.GamePanel;
 

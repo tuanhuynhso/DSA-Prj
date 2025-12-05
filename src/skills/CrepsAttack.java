@@ -27,8 +27,8 @@ public class CrepsAttack {
     }
 
     public void setAttackDirection() {
-        int playerx = gp.mainCharacter.worldX;
-        int playery = gp.mainCharacter.worldY;
+        int playerx = gp.player.worldX;
+        int playery = gp.player.worldY;
         int dx = Math.abs(playerx - caster.worldX);
         int dy = Math.abs(playery - caster.worldY);
         if (dx < dy) {
@@ -93,7 +93,7 @@ public class CrepsAttack {
     }
 
     public void checkAttack() {
-        Rectangle playerHitBox = gp.mainCharacter.getHitBox();
+        Rectangle playerHitBox = gp.player.getHitBox();
 
         if (playerHitBox.intersects(attackArea)) {
             Player.getInstance(gp).takeDamage(caster);

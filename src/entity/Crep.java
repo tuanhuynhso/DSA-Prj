@@ -123,8 +123,8 @@ public class Crep extends Entity {
         manageAction();
 
         if (!inAction) {
-            if (Math.abs(worldX - gp.mainCharacter.worldX) < Constant.tileSize * 1.2 &&
-                    Math.abs(worldY - gp.mainCharacter.worldY) < Constant.tileSize * 1.2 &&
+            if (Math.abs(worldX - gp.player.worldX) < Constant.tileSize * 1.2 &&
+                    Math.abs(worldY - gp.player.worldY) < Constant.tileSize * 1.2 &&
                     attack.getCooldown() == 0) {
                 attack.execute();
                 attack.update();

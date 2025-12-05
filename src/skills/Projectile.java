@@ -81,7 +81,6 @@ public class Projectile {
     }
 
     public void checkIfWalled() {
-        // Implement wall collision logic here
         for (int i = screenM.getScreenX() / Constant.tileSize; i < Constant.maxWorldCol; i++) {
             for (int j = screenM.getScreenY() / Constant.tileSize; j < Constant.maxWorldRow; j++) {
                 if (expired)
