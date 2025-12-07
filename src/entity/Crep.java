@@ -4,9 +4,11 @@ import main.Constant;
 import main.GamePanel;
 import skills.CrepsAttack;
 
+import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class Crep extends Entity {
     private GamePanel gp;
@@ -21,8 +23,23 @@ public class Crep extends Entity {
         this.attack = new CrepsAttack(gp, this, this.getAttackPower());
         this.setColGap(0);
         this.setRowGap(0);
+        loadSprites();
     }
 
+    public void loadSprites() {
+        try{
+            up1 = ImageIO.read(getClass().getResource("/res/monster/miasma_mage/miasma-up-1.png"));
+            up2 = ImageIO.read(getClass().getResource("/res/monster/miasma_mage/miasma-up-2.png"));
+            down1 = ImageIO.read(getClass().getResource("/res/monster/miasma_mage/miasma-down-1.png"));
+            down2 = ImageIO.read(getClass().getResource("/res/monster/miasma_mage/miasma-down-2.png"));
+            left1 = ImageIO.read(getClass().getResource("/res/monster/miasma_mage/miasma-left-1.png"));
+            left2 = ImageIO.read(getClass().getResource("/res/monster/miasma_mage/miasma-left-2.png"));
+            right1 = ImageIO.read(getClass().getResource("/res/monster/miasma_mage/miasma-right-1.png"));
+            right2 = ImageIO.read(getClass().getResource("/res/monster/miasma_mage/miasma-right-2.png"));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     public void findPlayer(Player player) {
         // // refresh collision info for current position
         // gp.collisionChecker.checkTile(this);
@@ -32,6 +49,7 @@ public class Crep extends Entity {
         // player at (" + playerX + ", " + playerY + ")");
         if (worldX < playerX) {
             // Move right
+            setDirection(3);
             if (!getCollisionOn()[1]) {
                 worldX += Math.min(getSpeed(), Math.abs(playerX - worldX));
             } else {
@@ -40,6 +58,7 @@ public class Crep extends Entity {
             }
         } else if (worldX > playerX) {
             // Move left
+            setDirection(2);
             if (!getCollisionOn()[0]) {
                 worldX -= Math.min(getSpeed(), Math.abs(worldX - playerX));
             } else {
@@ -48,6 +67,7 @@ public class Crep extends Entity {
         }
         if (worldY < playerY) {
             // Move down
+            setDirection(1);
             if (!getCollisionOn()[3]) {
                 worldY += Math.min(getSpeed(), Math.abs(playerY - worldY));
             } else {
@@ -56,6 +76,7 @@ public class Crep extends Entity {
             }
         } else if (worldY > playerY) {
             // Move up
+            setDirection(0);
             if (!getCollisionOn()[2]) {
                 worldY -= Math.min(getSpeed(), Math.abs(worldY - playerY));
             } else {
@@ -136,8 +157,42 @@ public class Crep extends Entity {
     }
 
     public void draw(Graphics g2) {
-        g2.setColor(Color.YELLOW);
-        g2.fillRect(getScreenX(), getScreenY(), 46, 46); // Assuming tile size of 64 for Creps
+        BufferedImage image = null;
+        switch(getDirection()){
+            case 0:
+                if(spriteNum == 1){
+                    image = up1;
+                }
+                if(spriteNum == 2){
+                    image = up2;
+                }
+                break;
+            case 1:
+                if(spriteNum == 1) {
+                    image = down1;
+                }
+                if(spriteNum == 2){
+                    image = down2;
+                }
+                break;
+            case 2:
+                if(spriteNum == 1) {
+                    image = left1;
+                }
+                if(spriteNum == 2){
+                image = left2;
+                }
+                break;
+            case 3:
+                if(spriteNum == 1){
+                    image = right1;
+                }
+                if(spriteNum == 2){
+                    image = right2;
+                }
+                break;
+        }
+        g2.drawImage(image, getScreenX(), getScreenY(),46 , 46, null);
         drawHealthBar(g2, getScreenX(), getScreenY() - 10, this.getHp(), this.getMaxHp());
         attack.draw(g2);
     }

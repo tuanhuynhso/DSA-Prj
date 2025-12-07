@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class Entity {
     public GamePanel gp;
@@ -14,6 +15,11 @@ public class Entity {
     private int attackPower;
     private int hp;
     private int maxHp;
+
+    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    public int spriteCounter = 0;
+    public int spriteNum = 1;
+
 
     // collision
     private Rectangle collisionBox;

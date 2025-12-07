@@ -3,11 +3,14 @@ package entity;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import main.Constant;
 import main.GamePanel;
 import utils.KeyHandler;
 import skills.AutoAttack;
+
+import javax.imageio.ImageIO;
 
 public class Player extends Entity {
     private GamePanel gp;
@@ -31,27 +34,32 @@ public class Player extends Entity {
         new boolean[4], new int[4]);
         this.gp = gp;
         autoAttackSkill = new AutoAttack(gp);
+        getPlayerSprite();
     }
     
 
     private void handleMovementInput(KeyHandler keyH) {
         if (keyH.leftPressed) {
+            setDirection(2);
             if (!getCollisionOn()[0])
                 worldX = worldX - getSpeed();
             else
                 worldX = getCollisionTile()[0] * Constant.tileSize + getWidth() / 2 - getColGap();
         } else if (keyH.rightPressed) {
+            setDirection(3);
             if (!getCollisionOn()[1])
                 worldX = worldX + getSpeed();
             else
                 worldX = getCollisionTile()[1] * Constant.tileSize + Constant.tileSize - getWidth() / 2 + getColGap() - 1;
         }
         if (keyH.upPressed) {
+            setDirection(0);
             if (!getCollisionOn()[2])
                 worldY = worldY - getSpeed();
             else
                 worldY = getCollisionTile()[2] * Constant.tileSize + getHeight() / 2 - getRowGap();
         } else if (keyH.downPressed) {
+            setDirection(1);
             if (!getCollisionOn()[3])
                 worldY = worldY + getSpeed();
             else
@@ -133,6 +141,21 @@ public class Player extends Entity {
         hitBox.height = Constant.tileSize - getRowGap() * 2;
     }
 
+    public void getPlayerSprite(){
+        try{
+            up1 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-up-1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-up-2.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-down-1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-down-2.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-left-1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-left-2.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-right-1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-right-2.png"));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void update(KeyHandler keyH) {
         if (stuntDurations > 0) {
             stuntDurations--;
@@ -143,11 +166,55 @@ public class Player extends Entity {
         checkCollisionWithEnemies();
         updateHitBox();
         ticksController();
+        // sprite animation
+        spriteCounter++;
+        if (spriteCounter > 12) {
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            } else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
     }
 
     public void draw(Graphics2D g2) {
-        g2.setColor(java.awt.Color.BLUE);
-        g2.fillRect(getScreenX(), getScreenY(), Constant.tileSize, Constant.tileSize);
+        BufferedImage image = null;
+        switch (getDirection()) {
+            case 0:
+                if (spriteNum == 1) {
+                    image = up1;
+                }
+                if (spriteNum == 2) {
+                    image = up2;
+                }
+                break;
+            case 1:
+                if (spriteNum == 1) {
+                    image = down1;
+                }
+                if (spriteNum == 2) {
+                    image = down2;
+                }
+                break;
+            case 2:
+                if (spriteNum == 1) {
+                    image = left1;
+                }
+                if (spriteNum == 2) {
+                    image = left2;
+                }
+                break;
+            case 3:
+                if (spriteNum == 1) {
+                    image = right1;
+                }
+                if (spriteNum == 2) {
+                    image = right2;
+                }
+                break;
+        }
+        g2.drawImage(image, getScreenX(), getScreenY(), Constant.tileSize, Constant.tileSize, null);
     }
 
     public int getStuntDurations() {

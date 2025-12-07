@@ -21,7 +21,7 @@ public class Statue {
         this.worldX = worldX;
         this.worldY = worldY;
         try {
-            buttonFImage = ImageIO.read(getClass().getResourceAsStream("/res/ui/Button_F.png"));
+            buttonFImage = ImageIO.read(getClass().getResourceAsStream("/res/"));
         } catch (IOException | IllegalArgumentException e) {
             System.out.println("Error loading Button_F.png: " + e.getMessage());
         }
