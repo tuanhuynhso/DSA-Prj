@@ -29,7 +29,7 @@ public class Tile{
             return img;
         }
         try {
-            BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/res/tiles/tile" + tileNum + ".png"));
+            BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/tiles/tile" + tileNum + ".png"));
             if (img == null) return null;
             return img;
         } catch (IOException | IllegalArgumentException e) {

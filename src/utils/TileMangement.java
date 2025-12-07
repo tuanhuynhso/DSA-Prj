@@ -25,7 +25,7 @@ public class TileMangement {
     private TileMangement(GamePanel gp) {
         this.gp = gp;
         mapTileNum = new int[Constant.maxWorldCol][Constant.maxWorldRow];
-        loadMap("/res/maps/map1.txt");
+        loadMap("/maps/map1.txt");
         System.out.println("Map loaded");
         loadTile();
         System.out.println("Tiles loaded");

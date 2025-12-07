@@ -18,5 +18,6 @@ public class Main {
         window.setVisible(true);
 
         panel.start();
+        panel.setup();
     }
 }
