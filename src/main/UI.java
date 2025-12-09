@@ -120,7 +120,7 @@ public class UI {
     public void drawTitleScreen() {
         // Title
         g2d.setFont(arial80B);
-        String text = "KATAVANIA";
+        String text = "DSA";
         int x = getXForCenteredText(text);
         int y = Constant.tileSize * 3;
         
@@ -230,7 +230,6 @@ public class UI {
                 commandNum = i;
             }
         }
-
     }
 
     public void drawPauseScreen() {

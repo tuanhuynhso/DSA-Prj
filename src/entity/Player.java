@@ -22,6 +22,9 @@ public class Player extends Entity {
         }
         return instance;
     }
+    public int getLife(){
+        return getHp();
+    }
 
     private int ticks = 0;
     private int stuntDurations = 0;

@@ -1,12 +1,14 @@
 package main;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class Main {
     
     public static void main(String[] args) {
         JFrame window = new JFrame();
         window.setTitle("HCMIU DSA");
+
+        SwingUtilities.invokeLater(GameMenu::new);
 
         GamePanel panel = new GamePanel();
         window.add(panel);
@@ -18,6 +20,5 @@ public class Main {
         window.setVisible(true);
 
         panel.start();
-        panel.setup();
     }
 }

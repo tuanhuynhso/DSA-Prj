@@ -1,11 +1,9 @@
 package main;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import javax.swing.JPanel;
 import entity.Player;
-import java.awt.Toolkit;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -56,48 +54,44 @@ public class GamePanel extends JPanel implements Runnable {
                 My = e.getY();
             }
         });
+        this.gameState = titleState;
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(gameState == titleState) {
-                    for(int i = 0; i < ui.titleButtons.length; i++) {
-                        if(ui.titleButtons[i].contains(e.getX(), e.getY())) {
+                if (gameState == titleState) {
+                    for (int i = 0; i < ui.titleButtons.length; i++) {
+                        if (ui.titleButtons[i].contains(e.getX(), e.getY())) {
                             ui.commandNum = i;
-                            if(i == 0) {
+                            if (i == 0) {
                                 gameState = playState;
-                            }
-                            else if(i == 1) {
+                            } else if (i == 1) {
                                 System.exit(0);
                             }
                         }
                     }
-                }
-                else if(gameState == pauseState) {
-                    for(int i = 0; i < ui.pauseButtons.length; i++) {
-                        if(ui.pauseButtons[i].contains(e.getX(), e.getY())) {
+                } else if (gameState == pauseState) {
+                    for (int i = 0; i < ui.pauseButtons.length; i++) {
+                        if (ui.pauseButtons[i].contains(e.getX(), e.getY())) {
                             ui.commandNum = i;
-                            if(i == 0) {
+                            if (i == 0) {
                                 gameState = playState;
-                            }
-                            else if(i == 1) {
+                            } else if (i == 1) {
                                 gameState = titleState;
                                 ui.commandNum = 0;
                             }
                         }
                     }
-                }
-                else if(gameState == deadState) {
-                    for(int i = 0; i < ui.deadButtons.length; i++) {
-                        if(ui.deadButtons[i].contains(e.getX(), e.getY())) {
+                } else if (gameState == deadState) {
+                    for (int i = 0; i < ui.deadButtons.length; i++) {
+                        if (ui.deadButtons[i].contains(e.getX(), e.getY())) {
                             ui.commandNum = i;
                         }
                     }
-                }
-                else if (gameState == winState) {
+                } else if (gameState == winState) {
                     for (int i = 0; i < ui.winButtons.length; i++) {
-                        if(ui.winButtons[i].contains(e.getX(), e.getY())) {
+                        if (ui.winButtons[i].contains(e.getX(), e.getY())) {
                             ui.commandNum = i;
-                            if(i == 0) {
+                            if (i == 0) {
                                 System.exit(0);
                             }
                         }
@@ -136,9 +130,6 @@ public class GamePanel extends JPanel implements Runnable {
             nextDrawTime += drawInterval;
         }
     }
-    public void setup(){
-        gameState = playState;
-    }
 
     public void update() {
         screenManagement.update();
@@ -152,17 +143,19 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        for (int i = 0; i < obj[0].length; i++) {
-            if (obj[0][i] != null) {
-                obj[0][i].draw(g2,this);
-            }
+        if (gameState == titleState) {
+            g2.setColor(Color.BLACK);
+            g2.fillRect(0, 0, Constant.screenWidth, Constant.screenHeight);
+        } else {
+            tileM.draw(g2);
+            player.draw(g2);
+            crepsManager.drawCreps(g2);
+            projectileManager.drawProjectiles(g2);
+            statueManager.drawStatues(g2);
         }
-        ui.draw(g2);
-        tileM.draw(g2);
-        player.draw(g2);
-        crepsManager.drawCreps(g2);
-        projectileManager.drawProjectiles(g2);
-        statueManager.drawStatues(g2);
+
+        ui.draw(g2); // 👈 draws title/pause/dead/win
+
         Toolkit.getDefaultToolkit().sync();
         g2.dispose();
     }
