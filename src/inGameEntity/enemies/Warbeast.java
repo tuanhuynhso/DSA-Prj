@@ -20,7 +20,7 @@ public class Warbeast extends Entity {
                 30, // hp
                 30, // maxHp
                 new boolean[4],
-                new int[4]);
+                new int[4], 100);
         loadSprites();
     }
 

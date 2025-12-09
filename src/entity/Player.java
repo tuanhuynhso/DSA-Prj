@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -15,10 +16,17 @@ import javax.imageio.ImageIO;
 public class Player extends Entity {
     private GamePanel gp;
     private static Player instance = null;
-    
+
     public static Player getInstance(GamePanel gp) {
         if (instance == null) {
             instance = new Player(gp);
+        }
+        return instance;
+    }
+
+    public static Player getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("Player instance has not been initialized yet.");
         }
         return instance;
     }
@@ -27,16 +35,21 @@ public class Player extends Entity {
     private int stuntDurations = 0;
     private Rectangle hitBox = new Rectangle(0, 0, 64, 64);
     public AutoAttack autoAttackSkill;
-    
+    private float expScale = 1;
+    private int exp = 600;
+    private int level = 1;
+    private int expToNextLevel = 100;
+    private int hpRegenCooldown = 4000; // in ticks
+    private int hpRegen = 1; // HP per second
+
     private Player(GamePanel gp) {
         super(gp, "Player", (int) (Constant.tileSize * 1.5), (int) (Constant.tileSize * 1.5),
-        Constant.tileSize, Constant.tileSize, new Rectangle(48, 48), 4, 1, 10, 10,
-        new boolean[4], new int[4]);
+                Constant.tileSize, Constant.tileSize, new Rectangle(48, 48), 4, 1, 10, 10,
+                new boolean[4], new int[4], 0);
         this.gp = gp;
         autoAttackSkill = new AutoAttack(gp);
         getPlayerSprite();
     }
-    
 
     private void handleMovementInput(KeyHandler keyH) {
         if (keyH.leftPressed) {
@@ -50,7 +63,8 @@ public class Player extends Entity {
             if (!getCollisionOn()[1])
                 worldX = worldX + getSpeed();
             else
-                worldX = getCollisionTile()[1] * Constant.tileSize + Constant.tileSize - getWidth() / 2 + getColGap() - 1;
+                worldX = getCollisionTile()[1] * Constant.tileSize + Constant.tileSize - getWidth() / 2 + getColGap()
+                        - 1;
         }
         if (keyH.upPressed) {
             setDirection(0);
@@ -63,7 +77,8 @@ public class Player extends Entity {
             if (!getCollisionOn()[3])
                 worldY = worldY + getSpeed();
             else
-                worldY = getCollisionTile()[3] * Constant.tileSize + Constant.tileSize - getHeight() / 2 + getRowGap() - 1;
+                worldY = getCollisionTile()[3] * Constant.tileSize + Constant.tileSize - getHeight() / 2 + getRowGap()
+                        - 1;
         }
     }
 
@@ -129,7 +144,7 @@ public class Player extends Entity {
     public void ticksController() {
         ticks++;
         autoAttack();
-        if (ticks > 60) {
+        if (ticks > (int)1e6) {
             ticks = 0;
         }
     }
@@ -141,8 +156,8 @@ public class Player extends Entity {
         hitBox.height = Constant.tileSize - getRowGap() * 2;
     }
 
-    public void getPlayerSprite(){
-        try{
+    public void getPlayerSprite() {
+        try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-up-1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-up-2.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-down-1.png"));
@@ -151,7 +166,7 @@ public class Player extends Entity {
             left2 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-left-2.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-right-1.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("/res/main_char/medium/med-right-2.png"));
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -159,10 +174,15 @@ public class Player extends Entity {
     public void update(KeyHandler keyH) {
         if (!isAlive())
             return;
+        
+        if (checkExpForLevelUp()) {
+            return;
+        }
         if (stuntDurations > 0) {
             stuntDurations--;
             return;
         }
+        regenHP();
         handleMovementInput(keyH);
         gp.collisionChecker.checkTile(this);
         checkCollisionWithEnemies();
@@ -178,6 +198,65 @@ public class Player extends Entity {
             }
             spriteCounter = 0;
         }
+    }
+
+    public void regenHP() {
+        System.out.println("Ticks: " + ticks);
+        if (ticks % hpRegenCooldown == 0) {
+            System.out.println("Regenerating HP");
+            this.healHp(hpRegen);
+        }
+    }
+
+    public void healHp(int amount) {
+        this.setHp(Math.min(this.getHp() + amount, this.getMaxHp()));
+    }
+
+    public void drawHealthBar(Graphics2D g) {
+        int barWidth = 250;
+        int barHeight = 20;
+
+        float ratio = (float) getHp() / getMaxHp();
+        int fill = (int) (barWidth * ratio);
+
+        g.setColor(Color.WHITE);
+        g.setFont(g.getFont().deriveFont(18f));
+        g.drawString("HP", 20, 30);
+
+        g.setColor(Color.GRAY);
+        g.fillRect(20, 35, barWidth, barHeight);
+
+        g.setColor(Color.RED);
+        g.fillRect(20, 35, fill, barHeight);
+
+        g.setColor(Color.WHITE);
+        g.drawRect(20, 35, barWidth, barHeight);
+    }
+
+    public void drawExpBar(Graphics2D g) {
+        int barWidth = 250;
+        int barHeight = 15;
+
+        float ratio = (float) getExp() / getExpToNextLevel();
+        int fill = (int) (barWidth * ratio);
+
+        g.setColor(Color.WHITE);
+        g.setFont(g.getFont().deriveFont(14f));
+        g.drawString("EXP", 20, 80);
+
+        g.setColor(Color.GRAY);
+        g.fillRect(20, 85, barWidth, barHeight);
+
+        g.setColor(Color.BLUE);
+        g.fillRect(20, 85, fill, barHeight);
+
+        g.setColor(Color.WHITE);
+        g.drawRect(20, 85, barWidth, barHeight);
+
+        g.setColor(Color.WHITE);
+        g.setFont(g.getFont().deriveFont(18f));
+        g.drawString("LV: " + getLevel(), 20, 130);
+
     }
 
     public void draw(Graphics2D g2) {
@@ -218,7 +297,8 @@ public class Player extends Entity {
                 }
                 break;
         }
-        drawHealthBar(g2, getScreenX(), getScreenY() - 10, getHp(), getMaxHp());
+        drawHealthBar(g2);
+        drawExpBar(g2);
         g2.drawImage(image, getScreenX(), getScreenY(), Constant.tileSize, Constant.tileSize, null);
     }
 
@@ -234,4 +314,60 @@ public class Player extends Entity {
         return hitBox;
     }
 
+    public int getExp() {
+        return exp;
+    }
+
+    public int getExpToNextLevel() {
+        return expToNextLevel;
+    }
+
+    public void gainExp(int exp) {
+        this.exp += exp * expScale;
+    }
+
+    public boolean checkExpForLevelUp() {
+        if (this.exp >= this.expToNextLevel) {
+            this.exp -= this.expToNextLevel;
+            levelUp();
+            gp.gameState = GamePanel.GameState.CARD_CHOOSING;
+            return true;
+        }
+        return false;
+    }
+
+    public void increaseExpScale(float amount) {
+        this.expScale += amount;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void levelUp() {
+        this.level++;
+        if (this.level % 5 == 0) {
+            gp.enemiesManager.enemiesGrowth();
+            System.out.println("Enemies have grown stronger!");
+        }
+        // freeze the game for player to choose stat increase
+        this.expToNextLevel = level * 100;
+    }
+
+    public void attackPowerUp(int bonus) {
+        this.setAttackPower(this.getAttackPower() + bonus);
+    }
+
+    public void maxHpUp(int bonus) {
+        this.setMaxHp(this.getMaxHp() + bonus);
+        this.setHp(this.getHp() + bonus);
+    }
+
+    public void speedUp(int bonus) {
+        this.setSpeed(this.getSpeed() + bonus);
+    }
+
+    public void attackSpeedUp(int bonus) {
+        this.autoAttackSkill.decreaseCooldown(bonus);
+    }
 }

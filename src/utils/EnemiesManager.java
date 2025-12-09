@@ -1,6 +1,8 @@
 package utils;
 
 import main.GamePanel;
+
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,15 +28,31 @@ public class EnemiesManager {
     private ArrayList<Entity> enemies = new ArrayList<>();
 
     private EnemiesManager(GamePanel gp) {
-        enemies.add(new Crep(gp, (int) (4.5 * Constant.tileSize), (int) (4.5 * Constant.tileSize)));
-        enemies.add(new Crep(gp, 10 * Constant.tileSize, 5 * Constant.tileSize));
-        enemies.add(new Crep(gp, 15 * Constant.tileSize, 10 * Constant.tileSize));
-        enemies.add(new Crep(gp, 20 * Constant.tileSize, 15 * Constant.tileSize));
-        enemies.add(new BossManticore(gp, 10 * Constant.tileSize, 10 * Constant.tileSize));
-        enemies.add(new BossManticore(gp, 20 * Constant.tileSize, 20 * Constant.tileSize));
-        enemies.add(new ElderLich(gp, 10 * Constant.tileSize, 5 * Constant.tileSize));
-        enemies.add(new MiasmaMage(gp, 15 * Constant.tileSize, 10 * Constant.tileSize));
-        enemies.add(new Warbeast(gp, 20 * Constant.tileSize, 15 * Constant.tileSize));
+        // Initialize enemies
+        for (int i = 0; i < 10; i++) {
+            int x = random.nextInt(Constant.maxWorldCol * Constant.tileSize);
+            int y = random.nextInt(Constant.maxWorldRow * Constant.tileSize);
+            enemies.add(new Crep(gp, x, y));
+        }
+        for (int i = 0; i < 5; i++) {
+            int x = random.nextInt(Constant.maxWorldCol * Constant.tileSize);
+            int y = random.nextInt(Constant.maxWorldRow * Constant.tileSize);
+            enemies.add(new MiasmaMage(gp, x, y));
+        }
+        for (int i = 0; i < 3; i++) {
+            int x = random.nextInt(Constant.maxWorldCol * Constant.tileSize);
+            int y = random.nextInt(Constant.maxWorldRow * Constant.tileSize);
+            enemies.add(new Warbeast(gp, x, y));
+        }
+        // Add Bosses
+        enemies.add(new ElderLich(gp, 1000, 1000));
+        enemies.add(new BossManticore(gp, 1500, 1500));
+    }
+
+    public void enemiesGrowth() {
+        for (Entity enemy : enemies) {
+            enemy.growth();
+        }
     }
 
     public void updateEnemies() {
@@ -55,9 +73,9 @@ public class EnemiesManager {
         }
     }
 
-    public void drawEnemies(java.awt.Graphics g2) {
+    public void drawEnemies(Graphics2D g2) {
         for (Entity enemy : enemies) {
-            if (!enemy.isAlive()) {
+            if (!enemy.isAlive() || !enemy.isInFrame()) {
                 continue;
             }
             enemy.draw(g2);

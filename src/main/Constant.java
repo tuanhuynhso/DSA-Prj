@@ -12,4 +12,8 @@ public final class Constant {
     public static final int maxWorldCol = 50; // map
     public static final int maxWorldRow = 25; // map
     public static final int interactDistance = tileSize;
+    public static final int cardWidth = 300;
+    public static final int cardHeight = 450;
+    public static final int cardGap = 30;
+    
 }

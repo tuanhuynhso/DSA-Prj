@@ -26,11 +26,8 @@ public class TileMangement {
         this.gp = gp;
         mapTileNum = new int[Constant.maxWorldCol][Constant.maxWorldRow];
         loadMap("/res/maps/map1.txt");
-        System.out.println("Map loaded");
         loadTile();
-        System.out.println("Tiles loaded");
         buildMapCache();
-        System.out.println("Map cache built");
     }
 
     public static TileMangement getInstance(GamePanel gp) {

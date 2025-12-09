@@ -25,7 +25,7 @@ public class ElderLich extends Entity {
                 8,
                 8,
                 new boolean[4],
-                new int[4]);
+                new int[4], 200);
         loadSprites();
     }
 

@@ -21,4 +21,10 @@ public class AutoAttack extends Skill {
         gp.projectileManager.addProjectile(projectile);
     }
 
+    public void decreaseCooldown(double amount) {
+        this.cooldown -= amount * 0.05;
+        if (this.cooldown < 0) {
+            this.cooldown = 0;
+        }
+    }
 }

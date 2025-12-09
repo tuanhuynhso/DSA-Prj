@@ -44,6 +44,11 @@ public class CollisionChecker {
         int nextTopRow = (entityYStart - speed) / Constant.tileSize;
         int nextBottomRow = (entityYend + speed) / Constant.tileSize;
 
+        if (nextLeftCol < 0) nextLeftCol = 0;
+        if (nextRightCol >= Constant.maxWorldCol) nextRightCol = Constant.maxWorldCol - 1;
+        if (nextTopRow < 0) nextTopRow = 0; 
+        if (nextBottomRow >= Constant.maxWorldRow) nextBottomRow = Constant.maxWorldRow - 1;
+
         // Left collision
         tileNum1 = gp.tileM.mapTileNum[nextLeftCol][entityTopRow];
         tileNum2 = gp.tileM.mapTileNum[nextLeftCol][entityBottomRow];

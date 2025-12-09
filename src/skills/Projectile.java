@@ -63,19 +63,19 @@ public class Projectile {
     }
 
     public void checkIfHitEntity() {
-        for (Entity crep : gp.enemiesManager.getEnemies()) {
+        for (Entity enemy : gp.enemiesManager.getEnemies()) {
             if (expired)
                 return;
             // Simple bounding box collision detection
-            if (!crep.isAlive())
+            if (!enemy.isAlive())
                 continue;
-            int entityX = crep.worldX;
-            int entityY = crep.worldY;
-            if (cor[0] >= entityX - crep.getWidth()/2 && cor[0] <= entityX + crep.getWidth()/2 &&
-                    cor[1] >= entityY - crep.getHeight()/2 && cor[1] <= entityY + crep.getHeight()/2) {
+            int entityX = enemy.worldX;
+            int entityY = enemy.worldY;
+            if (cor[0] >= entityX - enemy.getWidth()/2 && cor[0] <= entityX + enemy.getWidth()/2 &&
+                    cor[1] >= entityY - enemy.getHeight()/2 && cor[1] <= entityY + enemy.getHeight()/2) {
                 expired = true;
-                crep.takeDamage(damage);
-                crep.knockBack(20, cor[2] - cor[0], cor[3] - cor[1]);
+                enemy.takeDamage(damage);
+                enemy.knockBack(20, cor[2] - cor[0], cor[3] - cor[1]);
                 return;
             }
         }

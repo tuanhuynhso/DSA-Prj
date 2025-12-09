@@ -24,7 +24,7 @@ public class BossManticore extends Entity {
                 10,
                 10,
                 new boolean[4],
-                new int[4]);
+                new int[4], 200);
         loadSprites();
     }
 

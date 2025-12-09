@@ -6,10 +6,10 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import entity.Player;
 import java.awt.Toolkit;
-
 import utils.CollisionChecker;
 import utils.CooldownManager;
 import utils.KeyHandler;
+import utils.MouseManager;
 import utils.ProjectileManager;
 import utils.CoordinateManager;
 import utils.EnemiesManager;
@@ -19,6 +19,7 @@ import utils.TileMangement;
 
 public class GamePanel extends JPanel implements Runnable {
     private Thread gameThread;
+    public MouseManager mouseManager = MouseManager.getInstance();
     public KeyHandler keyHandler = KeyHandler.getInstance();
     public CoordinateManager mouseTrack = CoordinateManager.getInstance();
     public ScreenManagement screenManagement = ScreenManagement.getInstance(this);
@@ -29,11 +30,21 @@ public class GamePanel extends JPanel implements Runnable {
     public ProjectileManager projectileManager = ProjectileManager.getInstance();
     public CooldownManager cooldownManager = CooldownManager.getInstance();
     public StatueManager statueManager = StatueManager.getInstance(this);
+    public CardChoosingState cardChoosingState = CardChoosingState.getInstance(this);
+
+    public enum GameState {
+        PLAYING,
+        PAUSED,
+        CARD_CHOOSING
+    }
+
+    public GameState gameState = GameState.PLAYING;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(Constant.screenWidth, Constant.screenHeight));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
+        this.addMouseListener(mouseManager);
         this.setFocusable(true);
         this.setBackground(java.awt.Color.BLACK);
     }
@@ -67,10 +78,18 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        screenManagement.update();
-        player.update(keyHandler);
-        enemiesManager.updateEnemies();
-        projectileManager.updateProjectiles();
+        if (gameState == GameState.PLAYING) {
+            screenManagement.update();
+            player.update(keyHandler);
+            enemiesManager.updateEnemies();
+            projectileManager.updateProjectiles();
+        } else if (gameState == GameState.CARD_CHOOSING) {
+            // Game is paused for card choosing, no updates
+            cardChoosingState.update();
+        } else if (gameState == GameState.PAUSED) {
+            // Game is paused, no updates
+        }
+
     }
 
     @Override
@@ -83,6 +102,9 @@ public class GamePanel extends JPanel implements Runnable {
         enemiesManager.drawEnemies(g2);
         projectileManager.drawProjectiles(g2);
         statueManager.drawStatues(g2);
+        if (gameState == GameState.CARD_CHOOSING) {
+            cardChoosingState.draw(g2);
+        }
         Toolkit.getDefaultToolkit().sync();
         g2.dispose();
     }

@@ -29,13 +29,15 @@ public class Entity {
     private int[] collisionTile = new int[4]; // 1 = up, 2 = down, 3 = left, 4 = right check tile number of collision
     private int colGap;
     private int rowGap;
+    private int expValue = 0;
 
     private boolean isAlive = true;
 
     public Entity(GamePanel gp, String name, int worldX, int worldY, int width, int height, Rectangle collisionBox,
             int speed, int damage, int hp, int maxHp,
             boolean[] collisionOn,
-            int[] collisionTile) {
+            int[] collisionTile,
+            int expValue) {
         this.gp = gp;
         this.worldX = worldX;
         this.worldY = worldY;
@@ -50,11 +52,19 @@ public class Entity {
         this.maxHp = maxHp;
         this.isAlive = true;
         this.name = name;
+        this.expValue = expValue;
     }
 
     public void revive() {
         this.hp = this.maxHp;
         this.isAlive = true;
+    }
+
+    public void growth() {
+        int plevel = gp.player.getLevel();
+        this.maxHp += plevel/2;
+        this.hp += plevel/2;
+        this.attackPower += plevel / 3;
     }
 
     public void update() {
@@ -224,12 +234,20 @@ public class Entity {
         this.name = name;
     }
 
+    public int getExpValue() {
+        return expValue;
+    }
+
+    public void setExpValue(int expValue) {
+        this.expValue = expValue;
+    }
+
     public void takeDamage(int damage) {
         this.hp -= damage;
         if (this.hp <= 0) {
             this.hp = 0;
             this.isAlive = false;
-            System.out.println(this.name + " has been defeated.");
+            gp.player.gainExp(this.expValue);
         }
     }
 }

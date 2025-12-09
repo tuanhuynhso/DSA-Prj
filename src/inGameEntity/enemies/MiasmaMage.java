@@ -25,7 +25,7 @@ public class MiasmaMage extends Entity {
             5,      // hp
             5,
             new boolean[4],
-            new int[4]
+            new int[4], 100
         );
         loadSprites();
     }

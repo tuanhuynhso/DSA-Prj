@@ -16,7 +16,7 @@ public class Crep extends Entity {
     private CrepsAttack attack;
 
     public Crep(GamePanel gp, int worldX, int worldY) {
-        super(gp, "Creps", worldX, worldY, 46, 46, new Rectangle(46, 46), 2, 1, 2, 2, new boolean[4], new int[4]);
+        super(gp, "Creps", worldX, worldY, 46, 46, new Rectangle(46, 46), 2, 1, 2, 2, new boolean[4], new int[4], 100);
         this.gp = gp;
         this.attack = new CrepsAttack(gp, this, this.getAttackPower());
         this.setColGap(0);
@@ -38,6 +38,7 @@ public class Crep extends Entity {
             e.printStackTrace();
         }
     }
+    
     public void findPlayer(Player player) {
 
         int playerX = player.worldX;
@@ -75,10 +76,6 @@ public class Crep extends Entity {
             }
         }
 
-    }
-
-    public void takeDamage(int damage) {
-        this.damageHp(damage);
     }
 
     public void manageAction() {
