@@ -6,28 +6,28 @@
   <component name="ChangeListManager">
     <list default="true" id="dba014d4-8f0f-45d5-b984-6044f5a1a1dc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/entity/Crep.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/entity/Crep.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/entity/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/entity/Entity.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/entity/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/entity/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/entity/Statue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/entity/Statue.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/inGameEntity/Tile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/inGameEntity/Tile.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/inGameEntity/enemies/BossManticore.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/inGameEntity/enemies/BossManticore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/inGameEntity/enemies/ElderLich.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/inGameEntity/enemies/ElderLich.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/inGameEntity/enemies/MiasmaMage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/inGameEntity/enemies/MiasmaMage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/GameMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/GameMenu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/GamePanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/GamePanel$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/GamePanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/GamePanel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/inGameEntity/enemies/Warbeast.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/inGameEntity/enemies/Warbeast.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/Constant.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/Constant.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/GamePanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/OBJ_Life.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/OBJ_Life.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/OBJ_LowHPIndicator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/OBJ_LowHPIndicator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/OBJ_door.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/OBJ_door.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/OBJ_money.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/OBJ_money.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/OBJ_pekora.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/OBJ_pekora.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/SuperObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/SuperObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/UtilityTools.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/object/UtilityTools.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/UI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/main/UI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/skills/AutoAttack.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/skills/AutoAttack.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/skills/CrepsAttack.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/skills/CrepsAttack.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/skills/EnemyProjectile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/skills/EnemyProjectile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/skills/HomingOrb.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/skills/HomingOrb.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/skills/Projectile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/skills/Projectile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/tiles/tile0.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/tiles/tile0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/tiles/tile1.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/tiles/tile1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/utils/CollisionChecker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/utils/CollisionChecker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/utils/ScreenManagement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/utils/ScreenManagement.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/utils/TileMangement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HCMIU-OOP-Project/utils/TileMangement.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/UI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,30 +63,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Activation.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Activation.executor": "Run",
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "uhhh,-can't-access-main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Activation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="19" />

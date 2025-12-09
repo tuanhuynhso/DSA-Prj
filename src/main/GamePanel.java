@@ -1,5 +1,6 @@
 package main;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,6 +19,8 @@ import utils.StatueManager;
 import utils.TileMangement;
 
 public class GamePanel extends JPanel implements Runnable {
+    public UI ui = new UI(this);
+    public int Mx,My;
     private Thread gameThread;
     public MouseManager mouseManager = MouseManager.getInstance();
     public KeyHandler keyHandler = KeyHandler.getInstance();
@@ -35,10 +38,13 @@ public class GamePanel extends JPanel implements Runnable {
     public enum GameState {
         PLAYING,
         PAUSED,
-        CARD_CHOOSING
+        CARD_CHOOSING,
+        TITLE,
+        DEAD,
+        WIN
     }
 
-    public GameState gameState = GameState.PLAYING;
+    public GameState gameState = GameState.TITLE;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(Constant.screenWidth, Constant.screenHeight));
@@ -47,6 +53,35 @@ public class GamePanel extends JPanel implements Runnable {
         this.addMouseListener(mouseManager);
         this.setFocusable(true);
         this.setBackground(java.awt.Color.BLACK);
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                Mx = e.getX();
+                My = e.getY();
+                repaint();
+            }
+        });
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                handleClick(e.getX(), e.getY());
+            }
+        });
+    }
+
+    public void handleClick(int x, int y) {
+        if (gameState == GameState.TITLE) {
+            if (ui.titleButtons[0].contains(x, y)) {
+                gameState = GameState.PLAYING;  // NEW GAME
+            } else if (ui.titleButtons[1].contains(x, y)) {
+                System.exit(0);                 // QUIT
+            }
+        } else if (gameState == GameState.PAUSED) {
+        } else if (gameState == GameState.DEAD) {
+        } else if (gameState == GameState.WIN) {
+
+        }
     }
 
     public void start() {
@@ -97,15 +132,28 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        tileM.draw(g2);
-        player.draw(g2);
-        enemiesManager.drawEnemies(g2);
-        projectileManager.drawProjectiles(g2);
-        statueManager.drawStatues(g2);
+        // 🔹 Only draw the world when we're in "in-game" states
+        if (gameState == GameState.PLAYING ||
+                gameState == GameState.PAUSED  ||
+                gameState == GameState.CARD_CHOOSING) {
+
+            tileM.draw(g2);
+            player.draw(g2);
+            enemiesManager.drawEnemies(g2);
+            projectileManager.drawProjectiles(g2);
+            statueManager.drawStatues(g2);
+        } else {
+            g2.setColor(java.awt.Color.BLACK);
+            g2.fillRect(0, 0, Constant.screenWidth, Constant.screenHeight);
+        }
+
         if (gameState == GameState.CARD_CHOOSING) {
             cardChoosingState.draw(g2);
         }
+        ui.draw(g2);
+
         Toolkit.getDefaultToolkit().sync();
         g2.dispose();
     }
+
 }

@@ -67,22 +67,22 @@ public class UI {
         g2d.setColor(Color.WHITE);
 
         // TITLE STATE
-        if (gp.gameState == gp.titleState) {
+        if (gp.gameState == GamePanel.GameState.TITLE) {
             drawTitleScreen();
         }
         // PLAY STATE
-        else if (gp.gameState == gp.playState) {
+        else if (gp.gameState == GamePanel.GameState.PLAYING) {
             //drawPlayerLife(g2d);
         }
         // PAUSE STATE
-        else if (gp.gameState == gp.pauseState) {
+        else if (gp.gameState == GamePanel.GameState.PAUSED) {
             //drawPlayerLife(g2d);
             drawPauseScreen();
         }
-        else if (gp.gameState == gp.deadState) {
+        else if (gp.gameState == GamePanel.GameState.DEAD) {
             drawDeadScreen();
         }
-        else if (gp.gameState == gp.winState) {
+        else if (gp.gameState == GamePanel.GameState.WIN) {
             drawWinScreen();
         }
     }
@@ -201,6 +201,58 @@ public class UI {
             }
         }
 
+    }
+    public void handleClick(int x, int y) {
+        // TITLE SCREEN
+        if (gp.gameState == GamePanel.GameState.TITLE) {
+            for (int i = 0; i < titleButtons.length; i++) {
+                if (titleButtons[i].contains(x, y)) {
+                    commandNum = i;
+                    if (i == 0) {
+                        // NEW GAME
+                        gp.gameState = GamePanel.GameState.PLAYING;
+                    } else if (i == 1) {
+                        // QUIT
+                        System.exit(0);
+                    }
+                }
+            }
+        }
+
+        // PAUSE SCREEN
+        else if (gp.gameState == GamePanel.GameState.PAUSED) {
+            for (int i = 0; i < pauseButtons.length; i++) {
+                if (pauseButtons[i].contains(x, y)) {
+                    commandNum = i;
+                    if (i == 0) {
+                        // RESUME
+                        gp.gameState = GamePanel.GameState.PLAYING;
+                    } else if (i == 1) {
+                        // QUIT TO MENU
+                        gp.gameState = GamePanel.GameState.TITLE;
+                        // TODO: reset player/enemies if you want
+                    }
+                }
+            }
+        }
+
+        // DEAD SCREEN
+        else if (gp.gameState == GamePanel.GameState.DEAD) {
+            if (deadButtons[0].contains(x, y)) {
+                commandNum = 0;
+                // RESTART
+                // TODO: add a reset method
+                gp.gameState = GamePanel.GameState.PLAYING;
+            }
+        }
+
+        // WIN SCREEN
+        else if (gp.gameState == GamePanel.GameState.WIN) {
+            if (winButtons[0].contains(x, y)) {
+                commandNum = 0;
+                System.exit(0);
+            }
+        }
     }
     public void drawWinScreen() {
         g2d.setFont(arial80B);
