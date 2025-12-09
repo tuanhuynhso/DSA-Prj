@@ -23,6 +23,9 @@ public class Player extends Entity {
         }
         return instance;
     }
+    public int getLife(){
+        return getHp();
+    }
 
     public static Player getInstance() {
         if (instance == null) {

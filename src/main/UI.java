@@ -1,0 +1,289 @@
+package main;
+
+import object.*;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
+
+public class UI {
+    GamePanel gp;
+    Graphics2D g2d;
+    Font arial_40, arial80B;
+    BufferedImage HP_0, HP_1, HP_2, HP_3, HP_4, LowH;
+    public boolean messageOn = false;
+    public String message = "";
+    public int messageCounter = 0;
+    public boolean gameFinished = false;
+    public double playTime = 0.0;
+    DecimalFormat df = new DecimalFormat("#.00");
+
+    // Menu states
+    public int commandNum = 0;
+    public Rectangle[] titleButtons = new Rectangle[2];
+    public Rectangle[] pauseButtons = new Rectangle[2];
+    public Rectangle[] deadButtons = new Rectangle[1];
+    public Rectangle[] winButtons = new Rectangle[1];
+
+    public UI(GamePanel gp) {
+        this.gp = gp;
+        arial_40 = new Font("Arial", Font.PLAIN, 40);
+        arial80B = new Font("Arial", Font.BOLD, 80);
+
+        // Initialize button areas
+        for(int i = 0; i < titleButtons.length; i++) {
+            titleButtons[i] = new Rectangle();
+        }
+        for(int i = 0; i < pauseButtons.length; i++) {
+            pauseButtons[i] = new Rectangle();
+        }
+        for(int i = 0; i < deadButtons.length; i++) {
+            deadButtons[i] = new Rectangle();
+        }
+        for(int i = 0; i < winButtons.length; i++) {
+            winButtons[i] = new Rectangle();
+        }
+
+        //health lul
+        SuperObject Life = new OBJ_Life(gp);
+        HP_0 = Life.getHP_0();
+        HP_1 = Life.getHP_1();
+        HP_2 = Life.getHP_2();
+        HP_3 = Life.getHP_3();
+        HP_4 = Life.getHP_4();
+
+        SuperObject LowHP = new OBJ_LowHPIndicator(gp);
+        LowH = LowHP.getImage();
+    }
+
+    public void showMessage(String message) {
+        this.message = message;
+        messageOn = true;
+    }
+
+    public void draw(Graphics2D g2d) {
+        this.g2d = g2d;
+        g2d.setFont(arial_40);
+        g2d.setColor(Color.WHITE);
+
+        // TITLE STATE
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen();
+        }
+        // PLAY STATE
+        else if (gp.gameState == gp.playState) {
+            //drawPlayerLife(g2d);
+        }
+        // PAUSE STATE
+        else if (gp.gameState == gp.pauseState) {
+            //drawPlayerLife(g2d);
+            drawPauseScreen();
+        }
+        else if (gp.gameState == gp.deadState) {
+            drawDeadScreen();
+        }
+        else if (gp.gameState == gp.winState) {
+            drawWinScreen();
+        }
+    }
+
+    public void drawPlayerLife(Graphics2D g2d) {
+        int x = Constant.tileSize / 2;
+        int y = Constant.tileSize;
+
+        switch (gp.player.getLife()) {
+            case 4:
+                g2d.drawImage(HP_4, x, y, Constant.tileSize * 4, Constant.tileSize, null);
+                g2d.drawImage(LowH, -50, -50, Constant.screenWidth + 100, Constant.screenHeight + 100, null);
+                break;
+            case 3:
+                g2d.drawImage(HP_3, x, y, Constant.tileSize * 4, Constant.tileSize, null);
+                g2d.drawImage(LowH, -40, -40, Constant.screenWidth + 80, Constant.screenHeight + 80, null);
+                break;
+            case 2:
+                g2d.drawImage(HP_2, x, y, Constant.tileSize * 4, Constant.tileSize, null);
+                g2d.drawImage(LowH, -30, -30, Constant.screenWidth + 60, Constant.screenHeight + 60, null);
+                break;
+            case 1:
+                g2d.drawImage(HP_1, x, y, Constant.tileSize * 4, Constant.tileSize, null);
+                g2d.drawImage(LowH, -20, -20, Constant.screenWidth + 40, Constant.screenHeight + 40, null);
+                break;
+            case 0:
+            default:
+                g2d.drawImage(HP_0, x, y, Constant.tileSize * 4, Constant.tileSize, null);
+                g2d.drawImage(LowH, 0, 0, Constant.screenWidth, Constant.screenHeight, null);
+                break;
+        }
+    }
+
+
+    public void drawTitleScreen() {
+        // Title
+        g2d.setFont(arial80B);
+        String text = "DSA";
+        int x = getXForCenteredText(text);
+        int y = Constant.tileSize * 3;
+        
+        // Shadow
+        g2d.setColor(Color.GRAY);
+        g2d.drawString(text, x + 5, y + 5);
+        // Main color
+        g2d.setColor(Color.WHITE);
+        g2d.drawString(text, x, y);
+
+        // Menu options
+        g2d.setFont(arial_40);
+        
+        // NEW GAME option
+        text = "NEW GAME";
+        x = getXForCenteredText(text);
+        y += Constant.tileSize * 3;
+        g2d.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2d.drawString(">", x - Constant.tileSize, y);
+        }
+        // Store button area for mouse interaction
+        titleButtons[0].x = x - Constant.tileSize;
+        titleButtons[0].y = y - 30;
+        titleButtons[0].width = g2d.getFontMetrics().stringWidth(text) + Constant.tileSize;
+        titleButtons[0].height = 40;
+
+        // QUIT option
+        text = "QUIT";
+        x = getXForCenteredText(text);
+        y += Constant.tileSize;
+        g2d.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2d.drawString(">", x - Constant.tileSize, y);
+        }
+        // Store button area for mouse interaction
+        titleButtons[1].x = x - Constant.tileSize;
+        titleButtons[1].y = y - 30;
+        titleButtons[1].width = g2d.getFontMetrics().stringWidth(text) + Constant.tileSize;
+        titleButtons[1].height = 40;
+
+        // Draw button highlights on hover
+        for(int i = 0; i < titleButtons.length; i++) {
+            if(titleButtons[i].contains(gp.Mx, gp.My)) {
+                g2d.setColor(new Color(255, 255, 255, 50));
+                g2d.fill(titleButtons[i]);
+                g2d.setColor(Color.WHITE);
+                commandNum = i;
+            }
+        }
+    }
+    public void drawDeadScreen() {
+        g2d.setFont(arial80B);
+        String text = "GAME OVER";
+        int x = getXForCenteredText(text);
+        int y = Constant.screenHeight / 2;
+        g2d.drawString(text, x, y);
+
+        g2d.setFont(arial_40);
+        text = "RESTART";
+        x = getXForCenteredText(text);
+        y += Constant.tileSize * 3;
+        g2d.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2d.drawString(">", x - Constant.tileSize, y);
+        }
+        deadButtons[0].x = x - Constant.tileSize;
+        deadButtons[0].y = y - 30;
+        deadButtons[0].width = g2d.getFontMetrics().stringWidth(text) + Constant.tileSize;
+        deadButtons[0].height = 40;
+
+        for(int i = 0; i < deadButtons.length; i++) {
+            if(deadButtons[i].contains(gp.Mx, gp.My)) {
+                g2d.setColor(new Color(255, 255, 255, 50));
+                g2d.fill(deadButtons[i]);
+                g2d.setColor(Color.WHITE);
+                commandNum = i;
+            }
+        }
+
+    }
+    public void drawWinScreen() {
+        g2d.setFont(arial80B);
+        String text = "YOU WON!";
+        int x = getXForCenteredText(text);
+        int y = Constant.screenHeight / 2;
+        g2d.drawString(text, x, y);
+
+        g2d.setFont(arial_40);
+        text = "QUIT";
+        x = getXForCenteredText(text);
+        y += Constant.tileSize * 3;
+        g2d.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2d.drawString(">", x - Constant.tileSize, y);
+        }
+        winButtons[0].x = x - Constant.tileSize;
+        winButtons[0].y = y - 30;
+        winButtons[0].width = g2d.getFontMetrics().stringWidth(text) + Constant.tileSize;
+        winButtons[0].height = 40;
+
+        for(int i = 0; i < winButtons.length; i++) {
+            if(winButtons[i].contains(gp.Mx, gp.My)) {
+                g2d.setColor(new Color(255, 255, 255, 50));
+                g2d.fill(winButtons[i]);
+                g2d.setColor(Color.WHITE);
+                commandNum = i;
+            }
+        }
+    }
+
+    public void drawPauseScreen() {
+        // Title
+        g2d.setFont(arial80B);
+        String text = "PAUSED";
+        int x = getXForCenteredText(text);
+        int y = Constant.screenHeight / 2 - Constant.tileSize * 2;
+        g2d.drawString(text, x, y);
+
+        // Menu options
+        g2d.setFont(arial_40);
+        
+        // RESUME option
+        text = "RESUME";
+        x = getXForCenteredText(text);
+        y += Constant.tileSize * 2;
+        g2d.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2d.drawString(">", x - Constant.tileSize, y);
+        }
+        // Store button area for mouse interaction
+        pauseButtons[0].x = x - Constant.tileSize;
+        pauseButtons[0].y = y - 30;
+        pauseButtons[0].width = g2d.getFontMetrics().stringWidth(text) + Constant.tileSize;
+        pauseButtons[0].height = 40;
+
+        // QUIT TO MENU option
+        text = "QUIT TO MENU";
+        x = getXForCenteredText(text);
+        y += Constant.tileSize;
+        g2d.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2d.drawString(">", x - Constant.tileSize, y);
+        }
+        // Store button area for mouse interaction
+        pauseButtons[1].x = x - Constant.tileSize;
+        pauseButtons[1].y = y - 30;
+        pauseButtons[1].width = g2d.getFontMetrics().stringWidth(text) + Constant.tileSize;
+        pauseButtons[1].height = 40;
+
+        // Draw button highlights on hover
+        for(int i = 0; i < pauseButtons.length; i++) {
+            if(pauseButtons[i].contains(gp.Mx, gp.My)) {
+                g2d.setColor(new Color(255, 255, 255, 50));
+                g2d.fill(pauseButtons[i]);
+                g2d.setColor(Color.WHITE);
+                commandNum = i;
+            }
+        }
+    }
+
+    public int getXForCenteredText(String text) {
+        int length = (int) g2d.getFontMetrics().getStringBounds(text, g2d).getWidth();
+        return Constant.screenWidth / 2 - length / 2;
+    }
+}
